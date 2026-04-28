@@ -1,13 +1,12 @@
-<html lang="es"><head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Grayscale Image Converter to STL</title>
+    <title>Not Impossible x 3D4E Braille PNG to STL Coverter</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/geedmo/yamm@4.0.0/dist/yamm.min.css">
 </head>
 <body>
-    <!-- Menú Superior https://github.com/geedmo/yamm?tab=readme-ov-file -->
 <style>
   label{display:block;margin:10px 0 6px;font-weight:600;font-size:13px}
   input[type=file]{width:100%}
@@ -101,6 +100,7 @@
     const sunAzEl = document.getElementById('sunAzimuth');
     const colorEl = document.getElementById('color');
     scaleZEl.addEventListener('input', () => scaleZVal.textContent = scaleZEl.value);
+    const maxDim = 4096;
     // Three.js setup
     const renderer = new THREE.WebGLRenderer({canvas: canvasEl, antialias:true});
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -215,7 +215,6 @@
         heightMesh = null;
       }
       // resize image if too big for performance
-      const maxDim = 512;
       let w = img.width, h = img.height;
       let scale = 1;
       if (Math.max(w, h) > maxDim) {
@@ -248,7 +247,7 @@
         for (let x = 0; x < w; x++) {
           const pxIndex = (y * w + x) * 4;
           const lum = adjustedData.data[pxIndex];
-          const height = (lum / 255) * maxZ;
+          const height = ((255 - lum) / 255) * maxZ;
           const vertIndex = (y * w + x) * 3;
           positions[vertIndex + 1] = height;
         }
@@ -303,7 +302,7 @@
         for (let x = 0; x < w; x++) {
           const pxIndex = (y * w + x) * 4;
           const lum = adjustedData.data[pxIndex];
-          const height = (lum / 255) * maxZ;
+          const height = ((255 - lum) / 255) * maxZ;
           const vertIndex = (y * w + x) * 3;
           positions[vertIndex + 1] = height;
         }
@@ -350,7 +349,6 @@
         previewEl.src = URL.createObjectURL(fileEl.files[0]);
       }
       loadImageFile(fileEl.files[0]).then(img=>{
-        const maxDim = 512;
         let w = img.width, h = img.height;
         let scale = 1;
         if(Math.max(w,h) > maxDim){ scale = maxDim / Math.max(w,h); w = Math.round(w*scale); h = Math.round(h*scale); }
@@ -387,7 +385,6 @@
         heightMesh = null;
       }
       // redimensionar imagen si es grande
-      const maxDim = 512;
       let w = img.width, h = img.height;
       let scale = 1;
       if (Math.max(w, h) > maxDim) {
@@ -420,7 +417,7 @@
         for (let x = 0; x < w; x++) {
           const pxIndex = (y * w + x) * 4;
           const lum = adjustedData.data[pxIndex];
-          const height = (lum / 255) * maxZ;
+          const height = ((255 - lum) / 255) * maxZ;
           const vertIndex = (y * w + x) * 3;
           positions[vertIndex + 1] = height;
         }
@@ -457,10 +454,7 @@
       initExampleModel();
     });
   </script><div class="container py-4 mt-5"></div>
-    <footer class="bg-dark text-white text-center py-3 mt-4">
-		<p class="mb-0">© 2025 online-tools.muisca.co</p>
-	</footer>
-	<!-- Bootstrap JS y dependencias -->
+	<!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
